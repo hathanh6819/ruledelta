@@ -1,0 +1,25 @@
+{
+  "retrieved_at": "2026-09-25",
+  "source_api": "https://www.federalregister.gov/api/v1/documents/{document_number}.json",
+  "license_note": "Federal Register material may be reproduced without restriction under 1 CFR 2.6; API access requires no key.",
+  "comparison_question": "Did the final rule materially change the proposed ban on worker non-compete clauses?",
+  "documents": [
+    {
+      "document_number": "2023-00414",
+      "type": "Proposed Rule",
+      "agency_slug": "federal-trade-commission",
+      "rin": "3084-AB74",
+      "publication_date": "2023-01-19",
+      "official_pdf_url": "https://www.govinfo.gov/content/pkg/FR-2023-01-19/pdf/2023-00414.pdf"
+    },
+    {
+      "document_number": "2024-09171",
+      "type": "Rule",
+      "agency_slug": "federal-trade-commission",
+      "rin": "3084-AB74",
+      "publication_date": "2024-05-07",
+      "official_pdf_url": "https://www.govinfo.gov/content/pkg/FR-2024-05-07/pdf/2024-09171.pdf"
+    }
+  ],
+  "note": "The contract hashes a stable projection of API fields instead of raw JSON because volatile page-view metadata changes over time. FederalRegister raw_text_url currently returns an access-request page to automated clients and is intentionally excluded."
+}

@@ -1,8 +1,8 @@
 # RuleDelta
 
-RuleDelta is a GenLayer regulatory comparison registry. It verifies whether a specific obligation was retained, modified, removed, introduced, or absent between a Federal Register Proposed Rule and Final Rule.
+RuleDelta is a GenLayer regulatory comparison registry. It classifies whether a locked question appears retained, modified, removed, introduced, or absent between the official Federal Register API metadata and abstracts for a Proposed Rule and Final Rule.
 
-It is not an escrow and has no payable method. The deployment wallet is not stored. The unified production contract anchors revisioned source snapshots, binds comparison jobs to those snapshots, and requires a different wallet to perform the independent assessment. A successful assessment publishes an immutable digest-bound certificate. Later corrections require a newer source revision and a successor job rather than overwriting history.
+It is not an escrow and has no payable method. The deployment wallet is not stored. The unified production contract anchors revisioned source snapshots, binds comparison jobs to those snapshots, and requires a different wallet to perform the independent assessment. A successful assessment publishes an immutable digest-bound, metadata/abstract-scoped certificate. It is not a full-text legal redline or legal advice. Later corrections require a newer source revision and a successor job rather than overwriting history.
 
 ## Unified architecture
 
@@ -63,7 +63,14 @@ docs/                                         source and security documentation
 powershell -ExecutionPolicy Bypass -File scripts\verify_local.ps1
 ```
 
-The suite validates both contracts, runs 19 direct tests against the exact production source, and builds the frontend.
+The suite validates both contracts and the exact production source. The frontend has dedicated provider/account tests, a production build, and a public finalized write/readback check for anchoring, job creation, and independent assessment.
+
+```powershell
+cd frontend
+npm test
+npm run build
+npm run test:live
+```
 
 ## Safe release order
 

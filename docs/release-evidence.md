@@ -6,14 +6,24 @@ This file distinguishes completed local verification from live evidence that mus
 | --- | --- | --- |
 | Production registry lint/validation | PASS | `contracts/rule_delta.py` |
 | Source probe lint/validation | PASS | `contracts/federal_register_source_probe.py` |
-| Direct production-source suite | PASS | 16 tests in `tests/test_rule_delta.py` |
-| Frontend typecheck/build | PASS | Vite production build |
+| Direct production-source suite | PASS | 19 tests in `tests/test_rule_delta.py` |
+| Frontend provider/account tests | PASS | 3 tests in `frontend/src/genlayer.test.mts` |
+| Frontend typecheck/build | PASS | TypeScript and Vite production build |
 | Public source/API-key rule | PASS | Federal Register API; no API key; fixed canonical URL |
 | Probe deployment | PASS | [`0x0BB07988ddEFA53908b24986E1E4ad72CC78B2A6`](https://explorer-studio-dev.genlayer.com/address/0x0BB07988ddEFA53908b24986E1E4ad72CC78B2A6), deploy [`0xa2f666333a61ae6298c168f85ae756db1d233931b03c1b7ebb661af82008e5e6`](https://explorer-studio-dev.genlayer.com/tx/0xa2f666333a61ae6298c168f85ae756db1d233931b03c1b7ebb661af82008e5e6) finalized, GenVM SUCCESS, consensus Accepted |
 | Probe execution | PASS | [`0x3d3b11dab3ad5c6dd963a2638d84c427477d1030499422dff31a6c8d8816b36c`](https://explorer-studio-dev.genlayer.com/tx/0x3d3b11dab3ad5c6dd963a2638d84c427477d1030499422dff31a6c8d8816b36c): FINALIZED, GenVM SUCCESS, consensus Accepted |
 | Unified RuleDelta v2 deployment | PASS | [`0x52c6803B9Dcb8d5D578E0b85dA081c181a4D0910`](https://explorer-studio-dev.genlayer.com/address/0x52c6803B9Dcb8d5D578E0b85dA081c181a4D0910), deploy [`0x006c3cbc8ec2ab64a248a8f6f8270d217e7ebba767a784273ef2bd11351ae161`](https://explorer-studio-dev.genlayer.com/tx/0x006c3cbc8ec2ab64a248a8f6f8270d217e7ebba767a784273ef2bd11351ae161) finalized, GenVM SUCCESS, consensus Accepted |
 | Two-wallet E2E | PASS | Snapshot `1`, job `1`; creator `0x1D283b...B2760`, assessor `0xf96Cf8...10aD6`; finalized state `CERTIFIED / MODIFIED / SCOPE_CHANGED` |
-| Cloudflare production UI | PASS | [`https://ruledelta.pages.dev`](https://ruledelta.pages.dev), deployment `6c7d0880-deaf-4c3c-8959-5d8cf6e730f8`; public smoke test loaded finalized Studio Next state with no browser console errors |
+| Cloudflare production UI | PASS | [`https://ruledelta.pages.dev`](https://ruledelta.pages.dev), remediation deployment `8fb6ffd1-f8f7-422f-b4bb-ebee6d606df2` |
+
+## Steward remediation
+
+- The browser writer now requests the connected address first and constructs `genlayer-js` with distinct `provider` and `account` fields.
+- It verifies the address and Studio Next chain ID `61997`, and refuses to sign if the selected account changed after connection.
+- Every frontend write waits for finalization and checks successful validator execution before reading finalized contract state back.
+- `npm test` covers correct provider/account wiring, account-change rejection, and wrong-chain rejection.
+- `npm run test:live` re-verifies the finalized anchor, job-creation, and independent-assessment transactions below, then checks snapshot `1` and certificate job `1` from finalized state.
+- RuleDelta certificates are explicitly limited to Federal Register API identity fields, metadata, and abstracts. They are not full regulatory-content comparisons, full-text legal redlines, or legal advice.
 
 ## Live evidence template
 
